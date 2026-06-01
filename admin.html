@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Black Smoke</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #000; --secondary: #8B0000; --accent: #FF0000; --dark: #0a0a0a; --success: #28a745; --danger: #dc3545; --warning: #ffc107; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0a0a0a, #1a1a1a); color: white; }
+        
+        .admin-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: var(--primary); border-right: 2px solid var(--secondary); padding: 2rem 1rem; min-height: 100vh; }
+        .logo { font-size: 1.5rem; text-align: center; padding-bottom: 1rem; border-bottom: 2px solid var(--secondary); margin-bottom: 2rem; }
+        .logo span { color: var(--accent); }
+        .sidebar nav a { display: block; padding: 0.8rem 1rem; color: white; text-decoration: none; border-radius: 10px; margin-bottom: 0.5rem; transition: all 0.3s; }
+        .sidebar nav a:hover, .sidebar nav a.active { background: var(--secondary); transform: translateX(5px); }
+        .content { flex: 1; padding: 2rem; overflow-y: auto; }
+        
+        .card { background: linear-gradient(135deg, #1a1a1a, #0a0a0a); border-radius: 15px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--secondary); }
+        .card h3 { color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem; border: 2px solid #333; border-radius: 8px; background: #2a2a2a; color: white; font-size: 1rem; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
+        
+        .btn { padding: 0.6rem 1.2rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, var(--secondary), var(--accent)); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-warning { background: var(--warning); color: black; }
+        .btn-small { padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0 2px; }
+        
+        .products-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .products-table th, .products-table td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #333; }
+        .products-table th { background: var(--secondary); color: white; }
+        .products-table tr:hover { background: rgba(139,0,0,0.2); }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: linear-gradient(135deg, var(--secondary), var(--accent)); padding: 1.5rem; border-radius: 10px; text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: bold; }
+        
+        .login-box { max-width: 400px; margin: 100px auto; background: linear-gradient(135deg, #1a1a1a, #0a0a0a); padding: 2rem; border-radius: 15px; border: 2px solid var(--secondary); }
+        .image-preview { width: 80px; height: 80px; object-fit: cover; border-radius: 10px; margin-top: 10px; border: 2px solid var(--secondary); }
+        .hero-preview { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-top: 10px; }
+        
+        /* Botão destaque estilizado */
+        .btn-destaque { background: var(--warning); color: black; }
+        .btn-destaque-active { background: #ffc107; color: black; }
+        .btn-destaque-inactive { background: #666; color: white; }
+        
+        @media (max-width: 768px) { 
+            .admin-container { flex-direction: column; }
+            .sidebar { width: 100%; min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginPage" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div class="login-box">
+        <h2 style="text-align: center; margin-bottom: 2rem;"><i class="fas fa-crown"></i> BLACK SMOKE ADMIN</h2>
+        <div class="form-group"><label>USUÁRIO</label><input type="text" id="adminUser" placeholder="admin"></div>
+        <div class="form-group"><label>SENHA</label><input type="password" id="adminPass" placeholder="••••••"></div>
+        <button class="btn btn-primary" onclick="doLogin()" style="width: 100%;">ENTRAR</button>
+        <p style="margin-top: 1rem; text-align: center;">Demo: admin / 123456</p>
+    </div>
+</div>
+
+<div id="adminPanel" style="display: none;">
+    <div class="admin-container">
+        <div class="sidebar">
+            <div class="logo"><i class="fas fa-fire"></i> BLACK <span>SMOKE</span><div style="font-size: 0.7rem;">PAINEL ADMIN</div></div>
+            <nav>
+                <a href="#" onclick="showSection('dashboard')" id="navDashboard"><i class="fas fa-chart-line"></i> DASHBOARD</a>
+                <a href="#" onclick="showSection('produtos')" id="navProdutos"><i class="fas fa-box"></i> PRODUTOS</a>
+                <a href="#" onclick="showSection('config')" id="navConfig"><i class="fas fa-cog"></i> CONFIGURAÇÕES</a>
+                <a href="#" onclick="showSection('estoque')" id="navEstoque"><i class="fas fa-warehouse"></i> ESTOQUE</a>
+                <a href="#" onclick="logout()" style="margin-top: 2rem; background: var(--danger);"><i class="fas fa-sign-out-alt"></i> SAIR</a>
+            </nav>
+        </div>
+        
+        <div class="content">
+            <!-- Dashboard - Apenas produtos criados -->
+            <div id="dashboardSection">
+                <h1><i class="fas fa-chart-line"></i> DASHBOARD</h1>
+                <div class="stats-grid" id="statsGrid"></div>
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> PRODUTOS CADASTRADOS</h3>
+                    <div id="topProdutos"></div>
+                </div>
+            </div>
+            
+            <!-- Produtos -->
+            <div id="produtosSection" style="display: none;">
+                <h1><i class="fas fa-box"></i> GERENCIAR PRODUTOS</h1>
+                <div class="card">
+                    <h3><i class="fas fa-plus-circle"></i> ADICIONAR PRODUTO</h3>
+                    <form id="productForm" onsubmit="addProduct(event)">
+                        <div class="form-group"><label>NOME</label><input type="text" id="prodNome" required></div>
+                        <div class="form-group"><label>DESCRIÇÃO</label><textarea id="prodDesc" rows="3" required></textarea></div>
+                        <div class="form-group"><label>PREÇO (R$)</label><input type="number" step="0.01" id="prodPreco" required></div>
+                        <div class="form-group"><label>PREÇO PROMOCIONAL</label><input type="number" step="0.01" id="prodPromo"></div>
+                        <div class="form-group"><label>ESTOQUE</label><input type="number" id="prodEstoque" required></div>
+                        <div class="form-group"><label>CATEGORIA</label>
+                            <select id="prodCategoria">
+                                <option>Essências</option><option>Carvões</option><option>Narguilés</option><option>Acessórios</option><option>Promoções</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>AVALIAÇÃO (1-5)</label>
+                            <select id="prodRating">
+                                <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>IMAGEM</label>
+                            <input type="file" id="prodImagemFile" accept="image/*" onchange="previewImage(this)">
+                            <input type="text" id="prodImagemUrl" placeholder="Ou cole a URL da imagem">
+                            <input type="hidden" id="prodImagem">
+                            <img id="imagePreview" class="image-preview" style="display: none;">
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox" id="prodDestaque"> <i class="fas fa-star"></i> PRODUTO EM DESTAQUE</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> ADICIONAR PRODUTO</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> LISTA DE PRODUTOS</h3>
+                    <div id="produtosList"></div>
+                </div>
+            </div>
+            
+            <!-- Configurações -->
+            <div id="configSection" style="display: none;">
+                <h1><i class="fas fa-cog"></i> CONFIGURAÇÕES</h1>
+                <div class="card">
+                    <h3><i class="fas fa-image"></i> IMAGEM DO HERO</h3>
+                    <div class="form-group">
+                        <input type="text" id="heroUrl" placeholder="URL da imagem">
+                        <input type="file" id="heroFile" accept="image/*" onchange="previewHeroImage(this)">
+                        <img id="heroPreview" class="hero-preview" style="display: none;">
+                        <button class="btn btn-primary" onclick="saveHeroImage()" style="margin-top: 1rem;"><i class="fas fa-save"></i> SALVAR</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fab fa-whatsapp"></i> WHATSAPP</h3>
+                    <div class="form-group">
+                        <input type="text" id="whatsappNumber" placeholder="5511999999999">
+                        <button class="btn btn-primary" onclick="saveWhatsApp()"><i class="fas fa-save"></i> SALVAR</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-gift"></i> BANNER PROMOCIONAL</h3>
+                    <div class="form-group">
+                        <input type="text" id="promoText" placeholder="Texto do banner">
+                        <button class="btn btn-primary" onclick="savePromo()"><i class="fas fa-save"></i> SALVAR</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estoque -->
+            <div id="estoqueSection" style="display: none;">
+                <h1><i class="fas fa-warehouse"></i> CONTROLE DE ESTOQUE</h1>
+                <div class="stats-grid" id="estoqueStats"></div>
+                <div class="card">
+                    <div id="estoqueList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let produtos = [];
+    let config = { heroImage: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=1920", whatsappNumber: "5511999999999", promoText: "🎁 OFERTA ESPECIAL - Compre qualquer narguilé e ganhe 1 essência grátis! 🚀" };
+    
+    function loadData() {
+        const saved = localStorage.getItem('produtos_blacksmoke');
+        const savedConfig = localStorage.getItem('config_blacksmoke');
+        produtos = saved ? JSON.parse(saved) : [];
+        if (savedConfig) config = JSON.parse(savedConfig);
+        document.getElementById('heroUrl').value = config.heroImage;
+        document.getElementById('whatsappNumber').value = config.whatsappNumber;
+        document.getElementById('promoText').value = config.promoText;
+    }
+    
+    function saveData() {
+        localStorage.setItem('produtos_blacksmoke', JSON.stringify(produtos));
+        localStorage.setItem('config_blacksmoke', JSON.stringify(config));
+    }
+    
+    function doLogin() {
+        if (document.getElementById('adminUser').value === 'admin' && document.getElementById('adminPass').value === '123456') {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            loadData();
+            showSection('dashboard');
+            showNotification('Login realizado!');
+        } else showNotification('Senha inválida!', 'error');
+    }
+    
+    function logout() {
+        document.getElementById('loginPage').style.display = 'flex';
+        document.getElementById('adminPanel').style.display = 'none';
+    }
+    
+    function showSection(section) {
+        ['dashboard', 'produtos', 'config', 'estoque'].forEach(s => document.getElementById(s + 'Section').style.display = 'none');
+        document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+        document.getElementById(section + 'Section').style.display = 'block';
+        document.getElementById('nav' + section.charAt(0).toUpperCase() + section.slice(1)).classList.add('active');
+        if (section === 'dashboard') renderDashboard();
+        if (section === 'produtos') renderProdutosList();
+        if (section === 'estoque') renderEstoque();
+    }
+    
+    function renderDashboard() {
+        const total = produtos.length;
+        const totalEstoque = produtos.reduce((s,p) => s + p.estoque, 0);
+        const totalViews = produtos.reduce((s,p) => s + (p.views || 0), 0);
+        
+        document.getElementById('statsGrid').innerHTML = `
+            <div class="stat-card"><div class="stat-number">${total}</div><div>Produtos</div></div>
+            <div class="stat-card"><div class="stat-number">${totalEstoque}</div><div>Unidades</div></div>
+            <div class="stat-card"><div class="stat-number">${totalViews}</div><div>Interações</div></div>
+        `;
+        
+        document.getElementById('topProdutos').innerHTML = `
+            <table class="products-table">
+                <thead><tr><th>ID</th><th>Produto</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Destaque</th><th>Ações</th></tr></thead>
+                <tbody>${produtos.map(p => `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.nome}</td>
+                        <td>${p.categoria}</td>
+                        <td>R$ ${(p.preco_promocional || p.preco).toFixed(2)}</td>
+                        <td style="color:${p.estoque<10?'#ff4444':'#44ff44'}">${p.estoque}</td>
+                        <td>${p.destaque ? '<i class="fas fa-star" style="color:#ffc107"></i> Sim' : '❌ Não'}</td>
+                        <td>
+                            <button class="btn-small btn-warning" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i></button>
+                            <button class="btn-small btn-danger" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                            <button class="btn-small ${p.destaque ? 'btn-warning' : 'btn-primary'}" onclick="toggleDestaque(${p.id})"><i class="fas fa-star"></i></button>
+                        </td>
+                    </tr>
+                `).join('')}</tbody>
+            </table>
+        `;
+    }
+    
+    function toggleDestaque(id) {
+        const p = produtos.find(p => p.id === id);
+        if (p) { 
+            p.destaque = !p.destaque; 
+            saveData(); 
+            renderDashboard(); 
+            renderProdutosList(); 
+            showNotification(p.destaque ? '⭐ Produto destacado!' : '⭐ Destaque removido'); 
+        }
+    }
+    
+    function renderProdutosList() {
+        document.getElementById('produtosList').innerHTML = `
+            <table class="products-table">
+                <thead><tr><th>ID</th><th>Imagem</th><th>Produto</th><th>Preço</th><th>Estoque</th><th>Destaque</th><th>Ações</th></tr></thead>
+                <tbody>${produtos.map(p => `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td><img src="${p.imagem || ''}" style="width:50px;height:50px;object-fit:cover;border-radius:5px;" onerror="this.src='https://via.placeholder.com/50'"></td>
+                        <td>${p.nome}</td>
+                        <td>R$ ${p.preco.toFixed(2)}</td>
+                        <td style="color:${p.estoque<10?'#ff4444':'#44ff44'}">${p.estoque}</td>
+                        <td>${p.destaque ? '<i class="fas fa-star" style="color:#ffc107"></i>' : '❌'}</td>
+                        <td>
+                            <button class="btn-small btn-warning" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i></button>
+                            <button class="btn-small btn-danger" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                            <button class="btn-small ${p.destaque ? 'btn-warning' : 'btn-primary'}" onclick="toggleDestaque(${p.id})"><i class="fas fa-star"></i></button>
+                        </td>
+                    </tr>
+                `).join('')}</tbody>
+            </table>
+        `;
+    }
+    
+    function previewImage(input) { 
+        if(input.files[0]){ 
+            const r=new FileReader(); 
+            r.onload=e=>{ 
+                document.getElementById('prodImagem').value=e.target.result; 
+                document.getElementById('imagePreview').src=e.target.result; 
+                document.getElementById('imagePreview').style.display='block'; 
+            }; 
+            r.readAsDataURL(input.files[0]); 
+        } 
+    }
+    
+    function previewHeroImage(input) { 
+        if(input.files[0]){ 
+            const r=new FileReader(); 
+            r.onload=e=>{ 
+                document.getElementById('heroPreview').src=e.target.result; 
+                document.getElementById('heroPreview').style.display='block'; 
+                document.getElementById('heroUrl').value=e.target.result; 
+            }; 
+            r.readAsDataURL(input.files[0]); 
+        } 
+    }
+    
+    function addProduct(e) {
+        e.preventDefault();
+        
+        let imagem = document.getElementById('prodImagem').value;
+        const imagemUrl = document.getElementById('prodImagemUrl').value;
+        if (imagemUrl && !imagem) imagem = imagemUrl;
+        
+        const novoProduto = { 
+            id: Date.now(), 
+            nome: document.getElementById('prodNome').value, 
+            descricao: document.getElementById('prodDesc').value, 
+            preco: parseFloat(document.getElementById('prodPreco').value), 
+            preco_promocional: parseFloat(document.getElementById('prodPromo').value) || null, 
+            estoque: parseInt(document.getElementById('prodEstoque').value), 
+            categoria: document.getElementById('prodCategoria').value, 
+            imagem: imagem || 'https://via.placeholder.com/300?text=Black+Smoke', 
+            destaque: document.getElementById('prodDestaque').checked, 
+            views: 0, 
+            rating: parseInt(document.getElementById('prodRating').value) 
+        };
+        
+        produtos.push(novoProduto);
+        saveData();
+        renderProdutosList();
+        renderDashboard();
+        document.getElementById('productForm').reset();
+        document.getElementById('imagePreview').style.display = 'none';
+        document.getElementById('prodImagem').value = '';
+        document.getElementById('prodImagemUrl').value = '';
+        showNotification('✅ Produto adicionado com sucesso!');
+    }
+    
+    function editProduct(id) { 
+        const p = produtos.find(p => p.id === id); 
+        if(p){ 
+            document.getElementById('prodNome').value = p.nome; 
+            document.getElementById('prodDesc').value = p.descricao; 
+            document.getElementById('prodPreco').value = p.preco; 
+            document.getElementById('prodPromo').value = p.preco_promocional || ''; 
+            document.getElementById('prodEstoque').value = p.estoque; 
+            document.getElementById('prodCategoria').value = p.categoria; 
+            document.getElementById('prodDestaque').checked = p.destaque; 
+            document.getElementById('prodRating').value = p.rating;
+            produtos = produtos.filter(prod => prod.id !== id); 
+            renderProdutosList(); 
+            showNotification('✏️ Edite e clique em Adicionar', 'info'); 
+        } 
+    }
+    
+    function deleteProduct(id) { 
+        if(confirm('Excluir este produto?')){ 
+            produtos = produtos.filter(p => p.id !== id); 
+            saveData(); 
+            renderProdutosList(); 
+            renderDashboard(); 
+            showNotification('🗑️ Produto excluído!'); 
+        } 
+    }
+    
+    function saveHeroImage() { 
+        config.heroImage = document.getElementById('heroUrl').value; 
+        saveData(); 
+        showNotification('🖼️ Hero image salva!'); 
+    }
+    
+    function saveWhatsApp() { 
+        config.whatsappNumber = document.getElementById('whatsappNumber').value; 
+        saveData(); 
+        showNotification('📱 WhatsApp salvo!'); 
+    }
+    
+    function savePromo() { 
+        config.promoText = document.getElementById('promoText').value; 
+        saveData(); 
+        showNotification('🎁 Banner salvo!'); 
+    }
+    
+    function renderEstoque() { 
+        const total = produtos.reduce((s,p) => s + p.estoque, 0); 
+        const baixo = produtos.filter(p => p.estoque < 10).length; 
+        document.getElementById('estoqueStats').innerHTML = `
+            <div class="stat-card"><div class="stat-number">${total}</div><div>Total em Estoque</div></div>
+            <div class="stat-card"><div class="stat-number">${baixo}</div><div>Estoque Baixo</div></div>
+        `; 
+        document.getElementById('estoqueList').innerHTML = `
+            <table class="products-table">
+                <thead><tr><th>Produto</th><th>Categoria</th><th>Estoque</th><th>Status</th><th>Ação</th></tr></thead>
+                <tbody>${produtos.map(p => `
+                    <tr>
+                        <td>${p.nome}</td>
+                        <td>${p.categoria}</td>
+                        <td style="color:${p.estoque<10?'#ff4444':'#44ff44'}"><strong>${p.estoque}</strong></td>
+                        <td>${p.estoque<10 ? '⚠️ Estoque baixo!' : '✅ OK'}</td>
+                        <td><button class="btn-small btn-primary" onclick="adjustStock(${p.id})"><i class="fas fa-edit"></i> Ajustar</button></td>
+                    </tr>
+                `).join('')}</tbody>
+            </table>
+        `; 
+    }
+    
+    function adjustStock(id) { 
+        const p = produtos.find(p => p.id === id); 
+        const novo = prompt(`Estoque atual: ${p.estoque}\nDigite o novo valor:`, p.estoque); 
+        if (novo !== null && !isNaN(novo) && novo >= 0) { 
+            p.estoque = parseInt(novo); 
+            saveData(); 
+            renderEstoque(); 
+            renderProdutosList(); 
+            renderDashboard();
+            showNotification('📦 Estoque atualizado!'); 
+        } 
+    }
+    
+    function showNotification(msg, type) { 
+        const n = document.createElement('div'); 
+        n.innerHTML = `<i class="fas ${type==='error'?'fa-exclamation-triangle':'fa-check-circle'}"></i> ${msg}`; 
+        n.style.cssText = `position:fixed; bottom:20px; right:20px; background:${type==='error'?'#dc3545':'#28a745'}; color:white; padding:12px 24px; border-radius:50px; z-index:9999;`; 
+        document.body.appendChild(n); 
+        setTimeout(() => n.remove(), 3000); 
+    }
+</script>
+
+</body>
+</html>

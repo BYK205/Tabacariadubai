@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Black Smoke - Tabacaria Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --secondary: #8B0000;
+            --accent: #FF0000;
+            --dark: #0a0a0a;
+            --light: #f5f5f5;
+            --gray: #1a1a1a;
+            --whatsapp: #25D366;
+            --instagram: #E4405F;
+            --facebook: #1877F2;
+            --tiktok: #000000;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), var(--hero-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 5rem 2rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        /* Header */
+        header {
+            background: rgba(0,0,0,0.95);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        /* Busca */
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid var(--secondary);
+            border-radius: 50px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.95);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .search-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            display: none;
+            z-index: 1000;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .search-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-item:hover {
+            background: #f5f5f5;
+        }
+
+        .search-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .search-item-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .search-item-price {
+            color: var(--secondary);
+        }
+
+        /* Redes Sociais */
+        .social-icons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .social-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .social-btn.instagram { background: var(--instagram); }
+        .social-btn.facebook { background: var(--facebook); }
+        .social-btn.tiktok { background: var(--tiktok); }
+        .social-btn.whatsapp { background: var(--whatsapp); }
+
+        .social-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Navegação */
+        nav {
+            background: var(--gray);
+            padding: 0.8rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        nav ul {
+            max-width: 1400px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover, nav a.active {
+            background: var(--secondary);
+        }
+
+        /* Banner Promocional */
+        .promo-banner {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .promo-banner-content {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* Produtos */
+        .products-section {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            margin: 10px auto;
+        }
+
+        .featured-grid, .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid var(--secondary);
+            position: relative;
+        }
+
+        .product-card.featured {
+            border: 2px solid var(--accent);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .product-info {
+            padding: 1.2rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .product-title:hover {
+            color: var(--accent);
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #666;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        .rating {
+            margin: 0.5rem 0;
+        }
+
+        .star {
+            color: #ffc107;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+        }
+
+        .btn-load-more {
+            background: var(--secondary);
+            color: white;
+            width: auto;
+            padding: 0.8rem 2rem;
+            margin: 2rem auto;
+            display: block;
+            max-width: 250px;
+        }
+
+        .btn-load-more:hover {
+            background: var(--accent);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            max-width: 600px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border-radius: 20px;
+            border: 2px solid var(--secondary);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .close {
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--accent);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-product-image {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        /* Quantidade */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            background: #2a2a2a;
+            padding: 0.8rem;
+            border-radius: 50px;
+            justify-content: center;
+        }
+
+        .quantity-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .quantity-btn:hover {
+            background: var(--accent);
+        }
+
+        .quantity-input {
+            width: 80px;
+            text-align: center;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            background: #1a1a1a;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            color: white;
+        }
+
+        /* Formulário Cliente */
+        .customer-form {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid #333;
+        }
+
+        .customer-form h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .form-field {
+            margin-bottom: 1rem;
+        }
+
+        .form-field input, .form-field select, .form-field textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: #2a2a2a;
+            border: 1px solid var(--secondary);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .form-field input:focus, .form-field select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background: #2a2a2a;
+            border-radius: 50px;
+            border: 1px solid var(--secondary);
+        }
+
+        .radio-option.selected {
+            background: var(--secondary);
+            border-color: var(--accent);
+        }
+
+        .radio-option input {
+            width: auto;
+            margin: 0;
+        }
+
+        /* Produtos Relacionados */
+        .related-products {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid #333;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .related-item {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 0.8rem;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .related-item:hover {
+            background: var(--secondary);
+        }
+
+        .related-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 2px solid var(--secondary);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-content h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .footer-content a {
+            color: var(--light);
+            text-decoration: none;
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .footer-content a:hover {
+            color: var(--accent);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social .social-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+
+        /* Notificação */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--success);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            z-index: 3000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .notification.error {
+            background: var(--danger);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .header-container { flex-direction: column; }
+            .search-container { width: 100%; max-width: none; }
+            .social-icons { justify-content: center; }
+            .featured-grid, .products-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero" id="heroSection">
+    <div class="hero-content">
+        <h1>BLACK <span>SMOKE</span></h1>
+        <p>A experiência definitiva em narguilés, essências e acessórios premium</p>
+    </div>
+</div>
+
+<!-- Header -->
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <a href="javascript:void(0)" onclick="location.reload()">🔥 BLACK <span>SMOKE</span></a>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Buscar produtos..." autocomplete="off">
+            <div class="search-autocomplete" id="searchAutocomplete"></div>
+        </div>
+        <div class="social-icons">
+            <a href="#" class="social-btn instagram" onclick="openSocial('instagram')"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn facebook" onclick="openSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn tiktok" onclick="openSocial('tiktok')"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-btn whatsapp" onclick="openWhatsApp()"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
+</header>
+
+<!-- Categorias -->
+<nav>
+    <ul id="categoryNav">
+        <li><a href="#" onclick="filterByCategory('todos'); return false;" class="active">🏠 TODOS</a></li>
+        <li><a href="#" onclick="filterByCategory('Essências'); return false;">🌺 ESSÊNCIAS</a></li>
+        <li><a href="#" onclick="filterByCategory('Carvões'); return false;">🔥 CARVÕES</a></li>
+        <li><a href="#" onclick="filterByCategory('Narguilés'); return false;">💨 NARGUILÉS</a></li>
+        <li><a href="#" onclick="filterByCategory('Acessórios'); return false;">🔧 ACESSÓRIOS</a></li>
+        <li><a href="#" onclick="filterByCategory('Promoções'); return false;">🎯 PROMOÇÕES</a></li>
+    </ul>
+</nav>
+
+<!-- Banner Promo -->
+<div class="promo-banner" id="promoBanner">
+    <div class="promo-banner-content" onclick="openWhatsApp()">
+        <h3>🎁 OFERTA ESPECIAL</h3>
+        <p>Compre qualquer narguilé e ganhe 1 essência grátis! 🚀</p>
+    </div>
+</div>
+
+<!-- Produtos -->
+<main class="products-section">
+    <h2 class="section-title">⭐ PRODUTOS EM DESTAQUE</h2>
+    <div id="featuredGrid" class="featured-grid"></div>
+    
+    <h2 class="section-title" style="margin-top: 3rem;">📦 TODOS OS PRODUTOS</h2>
+    <div id="productsGrid" class="products-grid"></div>
+    <button id="loadMoreBtn" class="btn btn-load-more" onclick="loadMoreProducts()" style="display: none;">📖 VER MAIS PRODUTOS</button>
+</main>
+
+<!-- Modal Produto -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fab fa-whatsapp"></i> Comprar Produto</h2>
+            <span class="close" onclick="closeModal('productModal')">&times;</span>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
+
+<!-- Modal Políticas -->
+<div id="politicaModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="politicaTitle"></h2>
+            <span class="close" onclick="closeModal('politicaModal')">&times;</span>
+        </div>
+        <div class="modal-body" id="politicaBody"></div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div>
+        <div>
+            <h4>🔒 POLÍTICAS</h4>
+            <a href="#" onclick="showPolitica('privacidade'); return false;">Privacidade</a>
+            <a href="#" onclick="showPolitica('entregas'); return false;">Entregas</a>
+            <a href="#" onclick="showPolitica('trocas'); return false;">Trocas</a>
+        </div>
+        <div>
+            <h4>💳 PAGAMENTOS</h4>
+            <p>PIX | Cartões | Boleto</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ==================== DADOS ====================
+    let produtos = [];
+    let config = {
+        heroImage: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=1920",
+        whatsappNumber: "5511999999999",
+        promoText: "🎁 OFERTA ESPECIAL - Compre qualquer narguilé e ganhe 1 essência grátis! 🚀"
+    };
+    let currentCategory = 'todos';
+    let currentQuantity = 1;
+    let currentDeliveryType = 'entrega';
+    let visibleProducts = 15;
+    let allFilteredProducts = [];
+
+    // Produtos iniciais (20 produtos para teste)
+    const produtosIniciais = [
+        { id: 1, nome: "Essência Morango Explosão", descricao: "Essência premium para narguilé sabor morango 50ml. Sabor intenso e duradouro.", preco: 39.90, preco_promocional: 29.90, estoque: 50, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Essências", destaque: true, views: 0, rating: 5 },
+        { id: 2, nome: "Carvão Vegano Premium", descricao: "Carvão vegetal 40 unidades. Queima uniforme, sem cheiro.", preco: 24.90, preco_promocional: 19.90, estoque: 100, imagem: "https://images.unsplash.com/photo-1578058851865-2d31f5a92cde?w=300", categoria: "Carvões", destaque: true, views: 0, rating: 4 },
+        { id: 3, nome: "Narguilé Pharaoh Black", descricao: "Narguilé completo com design moderno em preto e vermelho.", preco: 299.90, preco_promocional: 249.90, estoque: 15, imagem: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=300", categoria: "Narguilés", destaque: true, views: 0, rating: 5 },
+        { id: 4, nome: "Bowl de Barro Premium", descricao: "Bowl de barro esmaltado com retenção de calor superior.", preco: 35.90, preco_promocional: null, estoque: 30, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Acessórios", destaque: false, views: 0, rating: 4 },
+        { id: 5, nome: "Essência Menta Power", descricao: "Essência menta extremamente refrescante 50ml.", preco: 39.90, preco_promocional: 32.90, estoque: 45, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Essências", destaque: false, views: 0, rating: 4 },
+        { id: 6, nome: "Kit Iniciante Completo", descricao: "Kit completo com narguilé, carvão, essência e acessórios.", preco: 399.90, preco_promocional: 349.90, estoque: 8, imagem: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=300", categoria: "Promoções", destaque: true, views: 0, rating: 5 },
+        { id: 7, nome: "Mangueira Silicone Preta", descricao: "Mangueira de silicone 1.5m, fácil limpeza.", preco: 45.90, preco_promocional: 39.90, estoque: 25, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Acessórios", destaque: false, views: 0, rating: 5 },
+        { id: 8, nome: "Essência Uva Ice", descricao: "Essência uva com sensação de gelo 50ml.", preco: 39.90, preco_promocional: 34.90, estoque: 60, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Essências", destaque: false, views: 0, rating: 4 },
+        { id: 9, nome: "Carvão Rápido", descricao: "Carvão rápido 30 unidades, acende em 2 minutos.", preco: 22.90, preco_promocional: 18.90, estoque: 80, imagem: "https://images.unsplash.com/photo-1578058851865-2d31f5a92cde?w=300", categoria: "Carvões", destaque: false, views: 0, rating: 4 },
+        { id: 10, nome: "Narguilé Slim Black", descricao: "Narguilé slim preto, design moderno e compacto.", preco: 199.90, preco_promocional: 179.90, estoque: 20, imagem: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=300", categoria: "Narguilés", destaque: false, views: 0, rating: 4 },
+        { id: 11, nome: "Essência Blueberry", descricao: "Essência blueberry 50ml, sabor doce e suave.", preco: 39.90, preco_promocional: 32.90, estoque: 40, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Essências", destaque: false, views: 0, rating: 5 },
+        { id: 12, nome: "Carvão Coconut", descricao: "Carvão de coco 30 unidades, queima longa.", preco: 28.90, preco_promocional: 24.90, estoque: 55, imagem: "https://images.unsplash.com/photo-1578058851865-2d31f5a92cde?w=300", categoria: "Carvões", destaque: false, views: 0, rating: 4 },
+        { id: 13, nome: "Narguilé Double Hose", descricao: "Narguilé com 2 mangueiras, ideal para duplas.", preco: 349.90, preco_promocional: 299.90, estoque: 10, imagem: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=300", categoria: "Narguilés", destaque: false, views: 0, rating: 5 },
+        { id: 14, nome: "Bowl de Silicone", descricao: "Bowl de silicone resistente, não quebra.", preco: 29.90, preco_promocional: null, estoque: 35, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Acessórios", destaque: false, views: 0, rating: 4 },
+        { id: 15, nome: "Essência Pina Colada", descricao: "Essência sabor pina colada 50ml.", preco: 39.90, preco_promocional: 34.90, estoque: 50, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Essências", destaque: false, views: 0, rating: 4 },
+        { id: 16, nome: "Kit Limpeza", descricao: "Kit com escovas e produtos para limpeza.", preco: 49.90, preco_promocional: 39.90, estoque: 20, imagem: "https://images.unsplash.com/photo-1559563362-c5716d6c8db2?w=300", categoria: "Acessórios", destaque: false, views: 0, rating: 5 }
+    ];
+
+    // ==================== FUNÇÕES ====================
+    function loadData() {
+        const savedProdutos = localStorage.getItem('produtos_blacksmoke');
+        const savedConfig = localStorage.getItem('config_blacksmoke');
+        
+        if (savedProdutos && savedProdutos !== '[]') {
+            produtos = JSON.parse(savedProdutos);
+        } else {
+            produtos = JSON.parse(JSON.stringify(produtosIniciais));
+            saveData();
+        }
+        
+        if (savedConfig) config = JSON.parse(savedConfig);
+        
+        document.getElementById('heroSection').style.setProperty('--hero-image', `url('${config.heroImage}')`);
+        
+        const bannerText = config.promoText;
+        const bannerParts = bannerText.split(' - ');
+        document.querySelector('.promo-banner-content').innerHTML = `<h3>${bannerParts[0]}</h3><p>${bannerParts[1] || bannerText}</p>`;
+        
+        renderProdutos();
+    }
+
+    function saveData() {
+        localStorage.setItem('produtos_blacksmoke', JSON.stringify(produtos));
+        localStorage.setItem('config_blacksmoke', JSON.stringify(config));
+    }
+
+    function renderStars(rating) {
+        return '★'.repeat(rating) + '☆'.repeat(5-rating);
+    }
+
+    function renderProdutos() {
+        // Filtra produtos pela categoria
+        let filtered = produtos;
+        if (currentCategory !== 'todos') {
+            filtered = produtos.filter(p => p.categoria === currentCategory);
+        }
+        
+        allFilteredProducts = filtered;
+        visibleProducts = 15;
+        
+        // Produtos em destaque
+        const destaque = produtos.filter(p => p.destaque).slice(0, 6);
+        const featuredGrid = document.getElementById('featuredGrid');
+        if (destaque.length > 0) {
+            featuredGrid.innerHTML = destaque.map(p => renderProductCard(p)).join('');
+        } else {
+            featuredGrid.innerHTML = '<div style="text-align: center; grid-column: 1/-1;">Nenhum produto em destaque</div>';
+        }
+        
+        // Mostra apenas os primeiros 15 produtos
+        const produtosParaMostrar = allFilteredProducts.slice(0, visibleProducts);
+        const grid = document.getElementById('productsGrid');
+        
+        if (produtosParaMostrar.length === 0) {
+            grid.innerHTML = '<div style="text-align: center; grid-column: 1/-1;">NENHUM PRODUTO ENCONTRADO</div>';
+            document.getElementById('loadMoreBtn').style.display = 'none';
+            return;
+        }
+        
+        grid.innerHTML = produtosParaMostrar.map(p => renderProductCard(p)).join('');
+        
+        // Mostrar botão "Ver Mais" se tiver mais produtos
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (allFilteredProducts.length > visibleProducts) {
+            loadMoreBtn.style.display = 'block';
+        } else {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
+
+    function loadMoreProducts() {
+        visibleProducts += 15;
+        const produtosParaMostrar = allFilteredProducts.slice(0, visibleProducts);
+        const grid = document.getElementById('productsGrid');
+        grid.innerHTML = produtosParaMostrar.map(p => renderProductCard(p)).join('');
+        
+        if (allFilteredProducts.length <= visibleProducts) {
+            document.getElementById('loadMoreBtn').style.display = 'none';
+        }
+    }
+
+    function renderProductCard(p) {
+        const preco = p.preco_promocional || p.preco;
+        const featuredClass = p.destaque ? 'featured' : '';
+        const featuredBadge = p.destaque ? '<div class="featured-badge">⭐ DESTAQUE</div>' : '';
+        
+        return `
+            <div class="product-card ${featuredClass}">
+                ${featuredBadge}
+                <img src="${p.imagem}" class="product-image" onclick="showProductDetail(${p.id})" onerror="this.src='https://via.placeholder.com/300?text=Black+Smoke'">
+                <div class="product-info">
+                    <h3 class="product-title" onclick="showProductDetail(${p.id})">${p.nome}</h3>
+                    <div class="rating">${renderStars(p.rating)} <span style="font-size:0.7rem;">(${p.views || 0})</span></div>
+                    <div class="product-price">
+                        ${p.preco_promocional ? `<span class="old-price">R$ ${p.preco.toFixed(2)}</span> R$ ${p.preco_promocional.toFixed(2)}` : `R$ ${p.preco.toFixed(2)}`}
+                    </div>
+                    <button class="btn btn-whatsapp" onclick="showProductDetail(${p.id})"><i class="fab fa-whatsapp"></i> COMPRAR</button>
+                </div>
+            </div>
+        `;
+    }
+
+    function showProductDetail(id) {
+        const produto = produtos.find(p => p.id === id);
+        if (!produto) return;
+        
+        produto.views = (produto.views || 0) + 1;
+        saveData();
+        
+        currentQuantity = 1;
+        currentDeliveryType = 'entrega';
+        const modal = document.getElementById('productModal');
+        const modalBody = document.getElementById('modalBody');
+        
+        const relacionados = produtos.filter(p => p.categoria === produto.categoria && p.id !== produto.id).slice(0, 4);
+        
+        modalBody.innerHTML = `
+            <img src="${produto.imagem}" class="modal-product-image" onerror="this.src='https://via.placeholder.com/400'">
+            <h3 style="color: var(--accent);">${produto.nome}</h3>
+            <div class="rating">${renderStars(produto.rating)}</div>
+            <p style="margin: 1rem 0;">${produto.descricao}</p>
+            <div class="product-price" style="font-size:2rem;">
+                ${produto.preco_promocional ? `<span class="old-price">R$ ${produto.preco.toFixed(2)}</span> R$ ${produto.preco_promocional.toFixed(2)}` : `R$ ${produto.preco.toFixed(2)}`}
+            </div>
+            
+            <div class="quantity-selector">
+                <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                <input type="number" id="quantidade" class="quantity-input" value="1" min="1" max="${produto.estoque}">
+                <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+            </div>
+            
+            <div class="customer-form">
+                <h4>📝 ESCOLHA A FORMA DE RETIRADA/ENTREGA</h4>
+                <div class="radio-group" id="deliveryGroup">
+                    <div class="radio-option ${currentDeliveryType === 'entrega' ? 'selected' : ''}" onclick="setDeliveryType('entrega')">
+                        <input type="radio" name="deliveryType" value="entrega" ${currentDeliveryType === 'entrega' ? 'checked' : ''}> 🚚 ENTREGA (Informar endereço)
+                    </div>
+                    <div class="radio-option ${currentDeliveryType === 'retirada' ? 'selected' : ''}" onclick="setDeliveryType('retirada')">
+                        <input type="radio" name="deliveryType" value="retirada" ${currentDeliveryType === 'retirada' ? 'checked' : ''}> 📍 RETIRADA (Buscar na loja)
+                    </div>
+                </div>
+                
+                <div id="enderecoField" style="${currentDeliveryType === 'entrega' ? 'display: block;' : 'display: none;'}">
+                    <div class="form-field">
+                        <input type="text" id="clienteEndereco" placeholder="Endereço completo (Rua, número, bairro, CEP) *">
+                    </div>
+                </div>
+                
+                <div class="form-field">
+                    <input type="text" id="clienteNome" placeholder="Seu nome completo *">
+                </div>
+                <div class="form-field">
+                    <input type="tel" id="clienteTelefone" placeholder="WhatsApp para contato *">
+                </div>
+                <div class="form-field">
+                    <select id="clientePagamento">
+                        <option value="">Forma de pagamento *</option>
+                        <option value="PIX">PIX</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                        <option value="Cartão de Débito">Cartão de Débito</option>
+                        <option value="Dinheiro">Dinheiro</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button class="btn btn-whatsapp" onclick="finalizarCompra(${produto.id})"><i class="fab fa-whatsapp"></i> ENVIAR PEDIDO</button>
+            
+            ${relacionados.length > 0 ? `
+                <div class="related-products">
+                    <h4>🔗 VOCÊ TAMBÉM PODE GOSTAR</h4>
+                    <div class="related-grid">
+                        ${relacionados.map(rel => `
+                            <div class="related-item" onclick="showProductDetail(${rel.id}); closeModal('productModal');">
+                                <img src="${rel.imagem}" onerror="this.src='https://via.placeholder.com/150'">
+                                <strong>${rel.nome}</strong>
+                                <div style="color:var(--accent);">R$ ${(rel.preco_promocional || rel.preco).toFixed(2)}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
+        `;
+        
+        modal.style.display = 'block';
+    }
+
+    function setDeliveryType(type) {
+        currentDeliveryType = type;
+        const enderecoField = document.getElementById('enderecoField');
+        const radioOptions = document.querySelectorAll('.radio-option');
+        
+        radioOptions.forEach(opt => opt.classList.remove('selected'));
+        if (type === 'entrega') {
+            document.querySelector('.radio-option:first-child').classList.add('selected');
+            enderecoField.style.display = 'block';
+        } else {
+            document.querySelector('.radio-option:last-child').classList.add('selected');
+            enderecoField.style.display = 'none';
+        }
+    }
+
+    function changeQuantity(delta) {
+        const qtdInput = document.getElementById('quantidade');
+        let val = parseInt(qtdInput.value) || 1;
+        val += delta;
+        if (val < 1) val = 1;
+        qtdInput.value = val;
+        currentQuantity = val;
+    }
+
+    function finalizarCompra(id) {
+        const produto = produtos.find(p => p.id === id);
+        const nome = document.getElementById('clienteNome')?.value;
+        const telefone = document.getElementById('clienteTelefone')?.value;
+        const pagamento = document.getElementById('clientePagamento')?.value;
+        const quantidade = parseInt(document.getElementById('quantidade')?.value) || 1;
+        const deliveryType = currentDeliveryType;
+        const endereco = deliveryType === 'entrega' ? document.getElementById('clienteEndereco')?.value : '';
+        
+        if (!nome || !telefone || !pagamento) {
+            showNotification('⚠️ Preencha todos os campos obrigatórios!', 'error');
+            return;
+        }
+        
+        if (deliveryType === 'entrega' && !endereco) {
+            showNotification('⚠️ Preencha o endereço para entrega!', 'error');
+            return;
+        }
+        
+        const preco = produto.preco_promocional || produto.preco;
+        const total = preco * quantidade;
+        
+        let mensagem = `*🖤 BLACK SMOKE - NOVO PEDIDO*%0A%0A`;
+        mensagem += `*🛍️ PRODUTO:* ${produto.nome}%0A`;
+        mensagem += `*💰 PREÇO UNITÁRIO:* R$ ${preco.toFixed(2)}%0A`;
+        mensagem += `*🔢 QUANTIDADE:* ${quantidade}%0A`;
+        mensagem += `*💵 TOTAL:* R$ ${total.toFixed(2)}%0A%0A`;
+        mensagem += `*📋 DADOS DO CLIENTE:*%0A`;
+        mensagem += `*Nome:* ${nome}%0A`;
+        mensagem += `*WhatsApp:* ${telefone}%0A`;
+        
+        if (deliveryType === 'entrega') {
+            mensagem += `*🚚 ENTREGA NO ENDEREÇO:*%0A`;
+            mensagem += `${endereco}%0A%0A`;
+        } else {
+            mensagem += `*📍 RETIRADA NA LOJA*%0A`;
+            mensagem += `Endereço: Rua Exemplo, 123 - Centro%0A%0A`;
+        }
+        
+        mensagem += `*💰 FORMA DE PAGAMENTO:* ${pagamento}`;
+        
+        window.open(`https://wa.me/${config.whatsappNumber}?text=${mensagem}`, '_blank');
+        closeModal('productModal');
+        showNotification('✅ Pedido enviado para o WhatsApp!');
+    }
+
+    // Busca
+    function setupSearch() {
+        const searchInput = document.getElementById('searchInput');
+        const autocomplete = document.getElementById('searchAutocomplete');
+        
+        searchInput.addEventListener('input', function() {
+            const term = this.value.toLowerCase().trim();
+            if (term.length < 2) { autocomplete.style.display = 'none'; return; }
+            
+            const results = produtos.filter(p => p.nome.toLowerCase().includes(term)).slice(0, 5);
+            if (results.length > 0) {
+                autocomplete.innerHTML = results.map(p => `
+                    <div class="search-item" onclick="showProductDetail(${p.id}); this.parentElement.style.display='none'; searchInput.value=''">
+                        <img src="${p.imagem}" onerror="this.src='https://via.placeholder.com/40'">
+                        <div><div class="search-item-title">${p.nome}</div><div class="search-item-price">R$ ${(p.preco_promocional || p.preco).toFixed(2)}</div></div>
+                    </div>
+                `).join('');
+                autocomplete.style.display = 'block';
+            } else {
+                autocomplete.style.display = 'none';
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target)) autocomplete.style.display = 'none';
+        });
+    }
+
+    function filterByCategory(category) {
+        currentCategory = category;
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        event.target.classList.add('active');
+        visibleProducts = 15;
+        renderProdutos();
+        window.scrollTo({ top: 400, behavior: 'smooth' });
+    }
+
+    function openSocial(rede) {
+        const links = { instagram: "https://instagram.com/blacksmoke", facebook: "https://facebook.com/blacksmoke", tiktok: "https://tiktok.com/@blacksmoke" };
+        window.open(links[rede], '_blank');
+    }
+
+    function openWhatsApp() {
+        window.open(`https://wa.me/${config.whatsappNumber}?text=Olá! Gostaria de mais informações!`, '_blank');
+    }
+
+    function showPolitica(tipo) {
+        const politicas = {
+            privacidade: { title: '🔒 PRIVACIDADE', content: '<p>Seus dados são protegidos e usados apenas para entregas.</p>' },
+            entregas: { title: '📦 ENTREGAS', content: '<p>Entregamos em todo Brasil em 3-7 dias úteis. Frete grátis acima de R$200.</p>' },
+            trocas: { title: '🔄 TROCAS', content: '<p>7 dias para troca. Produto sem uso na embalagem original.</p>' }
+        };
+        const p = politicas[tipo];
+        document.getElementById('politicaTitle').textContent = p.title;
+        document.getElementById('politicaBody').innerHTML = p.content;
+        document.getElementById('politicaModal').style.display = 'block';
+    }
+
+    function showNotification(msg, type) {
+        const n = document.createElement('div');
+        n.className = 'notification' + (type === 'error' ? ' error' : '');
+        n.innerHTML = `<i class="fas ${type === 'error' ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${msg}`;
+        document.body.appendChild(n);
+        setTimeout(() => n.remove(), 3000);
+    }
+
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    window.onclick = (e) => { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; };
+
+    document.addEventListener('DOMContentLoaded', () => { loadData(); setupSearch(); });
+</script>
+
+</body>
+</html>
